@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/DebtorsSystem/v15
+/.vs
+/DebtorsSystem/bin
+/DebtorsSystem/obj
+/DebtorsSystem/Properties
