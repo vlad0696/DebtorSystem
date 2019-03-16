@@ -1,0 +1,173 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/semantic.min.js"></script>
+<script src="~/js/dropdown.min.js"></script>
+<script src="~/js/calendar.min.js"></script>
+<link href="~/css/semantic.css" rel="stylesheet" type="text/css" />
+<link href="~/css/dropdown.min.css" rel="stylesheet" type="text/css" />
+<link href="~/css/calendar.min.css" rel="stylesheet" type="text/css" />
+<h2>Edit</h2>
+<div id="mainform" style=" margin-left:5%; margin-right:5%">
+    <form class="ui form" id="debtorAddForm" onsubmit="return false;">
+        <div class=" field">
+            <label>ФИО</label>
+            <input name="FIO" type="text" placeholder="ФИО">
+        </div>
+        <div class=" field">
+            <label>Дата выпуска</label>
+            <div class="ui calendar" id="DateIssue">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateIssue">
+                </div>
+            </div>
+        </div>
+
+        <div class="ui selection dropdown" style="margin-top:1%;margin-bottom:1% ">
+            <input type="hidden" name="TrainingLevel">
+            <i class="dropdown icon"></i>
+            <div class="default text">Уровень подготовки</div>
+            <div class="menu">
+                <div class="item" data-value="1">ПТО</div>
+                <div class="item" data-value="0">ССО</div>
+            </div>
+        </div>
+
+        <div class=" field">
+            <label>Адрес</label>
+            <input type="text" placeholder="Адрес" name="Address">
+        </div>
+
+        <div class=" field">
+            <label>Дата приступления к работе</label>
+            <div class="ui calendar" id="DateWorkStarted">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateWorkStarted">
+                </div>
+            </div>
+        </div>
+
+        <div class=" field">
+            <label>Дата увольнения</label>
+            <div class="ui calendar" id="DateWorkStopped">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateWorkStopped">
+                </div>
+            </div>
+        </div>
+
+        <div class=" field">
+            <label>Дата приказа о возмещении</label>
+            <div class="ui calendar" id="DateRefund">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateRefund">
+                </div>
+            </div>
+        </div>
+
+        <div class=" field">
+            <label>Сумма возмещения</label>
+            <input type="text" placeholder="Сумма возмещения" name="RefundAmount">
+        </div>
+
+
+        <div class=" field">
+            <label>Сумма возмещения до суда</label>
+            <input type="text" placeholder="Сумма возмещения" name="RefundBeforeTrial">
+        </div>
+
+        <div class=" field">
+            <label>Дата суда</label>
+            <div class="ui calendar" id="DateTrial">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateTrial">
+                </div>
+            </div>
+        </div>
+
+        <div class=" field">
+            <label>Сумма, возмещённая после суда</label>
+            <input type="text" placeholder="Сумма возмещения" name="RefundAfterTrial">
+        </div>
+
+        <div class=" field">
+            <label>Дата остановки исполнительного производства</label>
+            <div class="ui calendar" id="DateExecution">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateExecution">
+                </div>
+            </div>
+        </div>
+        <div class=" field">
+            <label>Дата восстановления исполнительного производства</label>
+            <div class="ui calendar" id="DateResumptionExecution">
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input autocomplete="off" type="text" placeholder="Date/Time" name="DateResumptionExecution">
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label>Переписка</label>
+            <textarea style="margin-top: 0px; margin-bottom: 0px; height: 112px;" name="Mails"></textarea>
+        </div>
+
+        <div id="addButton" class="ui submit button">Добавить</div>
+
+    </form>
+</div>
+
+<script>
+    $('#DateIssue, #DateRefund, #DateTrial, #DateExecution, #DateWorkStarted, #DateWorkStopped, #DateResumptionExecution').calendar({
+        type: 'date',
+        firstDayOfWeek: 1,
+        formatInput: false,
+        text: {
+            days: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+            today: 'Сегодня'
+        },
+    });
+    $('.ui.dropdown')
+        .dropdown();
+
+    var $debtorAddForm = $('#debtorAddForm');
+    $('#addButton').on('click', function () {
+        $mydata = {
+            'FIO': $debtorAddForm.form('get value', 'FIO'),
+            'DateIssue': $debtorAddForm.form('get value', 'DateIssue'),
+            'TrainingLevel': $debtorAddForm.form('get value', 'TrainingLevel'),
+            'Address': $debtorAddForm.form('get value', 'Address'),
+            'DateWorkStarted': $debtorAddForm.form('get value', 'DateWorkStarted'),
+            'DateWorkStopped': $debtorAddForm.form('get value', 'DateWorkStopped'),
+            'RefundAmount': $debtorAddForm.form('get value', 'RefundAmount'),
+            'DateRefund': $debtorAddForm.form('get value', 'DateRefund'),
+            'RefundBeforeTrial': $debtorAddForm.form('get value', 'RefundBeforeTrial'),
+            'DateTrial': $debtorAddForm.form('get value', 'DateTrial'),
+            'RefundAfterTrial': $debtorAddForm.form('get value', 'RefundAfterTrial'),
+            'DateExecution': $debtorAddForm.form('get value', 'DateExecution'),
+            'DateResumptionExecution': $debtorAddForm.form('get value', 'DateResumptionExecution'),
+            'Mails': $debtorAddForm.form('get value', 'Mails')
+
+        }
+        console.log($mydata);
+        $.ajax({
+            url: '/debtor/Add',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify($mydata),
+            success: function (data) {
+                 window.location = "@Url.Action("Index", "Debtor")";
+            },
+            async: true
+        });
+    })
+</script>

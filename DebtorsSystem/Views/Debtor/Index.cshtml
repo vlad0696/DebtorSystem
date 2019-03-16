@@ -1,0 +1,159 @@
+﻿@model IEnumerable<DebtorsSystem.Models.DebtorTable>
+@{
+    ViewData["Title"] = "Система задолжников";
+    string AllRefund = "0";
+    string AllRefundResidue = "0";
+    string color = "";
+}
+
+
+<div style="margin-top:5%; margin-left:5%; margin-right:5%">
+    <table class="ui fixed green table">
+        <thead>
+            <tr>
+                <th style="font-size: 10pt">ФИО</th>
+                <th style="font-size: 10pt">Год выпуска</th>
+                <th style="font-size: 10pt">Уровень подготовки</th>
+                <th style="font-size: 10pt">Приступили к работе</th>
+                <th style="font-size: 10pt">Дата приказа о возмещении</th>
+                <th style="font-size: 9pt">Сумма возмещения</th>
+                <th style="font-size: 10pt">Возместили до суда</th>
+                <th style="font-size: 10pt">Дата суда</th>
+                <th style="font-size: 10pt">Возместили после суда</th>
+                <th style="font-size: 9pt">Дата остановки производства</th>
+                <th style="font-size: 9pt">Дата возобновления производства</th>
+                <th style="font-size: 9pt">Остаток по возмещению</th>
+                <th style="font-size: 10pt"></th>
+            </tr>
+        </thead>
+        @foreach (var debtors in Model)
+        {
+
+
+            <tbody>
+                @foreach (var debtor in @debtors.debtors)
+                {
+                    if (float.Parse(debtor.RefundResidue) <= 0)
+                    {
+                        color = "positive";
+                    }
+                    else
+                    {
+                        color = "";
+                    }
+                <tr class="@color">
+                    <td>@debtor.FIO</td>
+                    <td>@debtor.DateIssue.Year</td>
+                    <td>@debtor.TrainingLevel</td>
+                    <td>
+                        @if (debtor.DateWorkStarted.ToShortDateString() == "01.01.0001")
+                        {
+                            <p>Нет</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.DateWorkStarted.ToShortDateString()</p>
+                        }
+
+                    </td>
+
+                    <td>
+                        @if (debtor.DateRefund.ToShortDateString() == "01.01.0001")
+                        {
+                            <p>Нет</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.DateRefund.ToShortDateString()</p>
+                        }
+                    </td>
+                    <td>@debtor.RefundAmount</td>
+                    <td>@debtor.RefundBeforeTrial</td>
+
+                    <td>
+                        @if (debtor.DateTrial.ToShortDateString() == "01.01.0001")
+                        {
+                            <p>Нет</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.DateTrial.ToShortDateString()</p>
+                        }
+                    </td>
+                    <td>@debtor.RefundAfterTrial</td>
+                    <td>
+                        @if (debtor.DateExecution.ToShortDateString() == "01.01.0001")
+                        {
+                            <p>Нет</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.DateExecution.ToShortDateString()</p>
+                        }
+                    </td>
+                    <td>
+                        @if (debtor.DateResumptionExecution.ToShortDateString() == "01.01.0001")
+                        {
+                            <p>Нет</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.DateResumptionExecution.ToShortDateString()</p>
+                        }
+                    </td>
+                    <td>
+                        @if (debtor.RefundResidue == "0")
+                        {
+                            <p>Возмещено</p>
+                        }
+                        else
+                        {
+                            <p>@debtor.RefundResidue</p>
+                        }
+                    </td>
+                    <td><a href="~/Debtor/Edit/@debtor.Id">Изменить</a></td>
+                </tr>
+
+                }
+            </tbody>
+            <tr class="active">
+                <th><b>Всего:</b></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@debtors.AllRefund</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@debtors.AllRefundResidue</th>
+                <th></th>
+            </tr>
+
+            { AllRefund = (float.Parse(AllRefund) + float.Parse(debtors.AllRefund)).ToString(); }
+            { AllRefundResidue = (float.Parse(AllRefundResidue) + float.Parse(debtors.AllRefundResidue)).ToString(); }
+        }
+        <tfoot>
+            <tr class="warning">
+                <th><b>Всего:</b></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@AllRefund</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@AllRefundResidue</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+    <a asp-area="" asp-controller="Debtor" asp-action="Add">Добавить выпускника</a>
+    <a asp-area="" asp-controller="Debtor" asp-action="SendSMS">Отправить SMS</a>
+
+</div>
