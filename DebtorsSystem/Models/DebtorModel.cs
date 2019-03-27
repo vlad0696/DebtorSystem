@@ -30,7 +30,8 @@ namespace DebtorsSystem.Models
         {
             debtor.Id = int.Parse(Id);
             debtor.FIO = FIO;
-            debtor.DateIssue = convertToDate(DateIssue);
+            debtor.DateIssue = DateIssue != "" ? convertToDate(DateIssue) : new DateTime(1, 1, 1);
+
             if (TrainingLevel == "1")
             {
                 debtor.TrainingLevel = "ПТО";
@@ -48,7 +49,7 @@ namespace DebtorsSystem.Models
             debtor.DateTrial = DateTrial != "" ? convertToDate(DateTrial) : new DateTime(1, 1, 1);
             debtor.RefundAfterTrial = RefundAfterTrial;
             debtor.DateExecution = DateExecution != "" ? convertToDate(DateExecution) : new DateTime(1, 1, 1);
-            debtor.DateResumptionExecution = DateExecution != "" ? convertToDate(DateResumptionExecution) : new DateTime(1, 1, 1);
+            debtor.DateResumptionExecution = DateResumptionExecution != "" ? convertToDate(DateResumptionExecution) : new DateTime(1, 1, 1);
             debtor.Mails = Mails;
             return debtor;
         }
@@ -57,7 +58,7 @@ namespace DebtorsSystem.Models
         {
             Debtor debtor = new Debtor();
             debtor.FIO = FIO;
-            debtor.DateIssue = convertToDate(DateIssue);
+            debtor.DateIssue = DateIssue!=""? convertToDate(DateIssue):new DateTime(1,1,1);
             if (TrainingLevel == "1")
             {
                 debtor.TrainingLevel = "ПТО";
@@ -75,7 +76,7 @@ namespace DebtorsSystem.Models
             debtor.DateTrial = DateTrial != "" ? convertToDate(DateTrial) : new DateTime(1, 1, 1);
             debtor.RefundAfterTrial = RefundAfterTrial;
             debtor.DateExecution = DateExecution != "" ? convertToDate(DateExecution) : new DateTime(1, 1, 1);
-            debtor.DateResumptionExecution = DateExecution != "" ? convertToDate(DateResumptionExecution) : new DateTime(1, 1, 1);
+            debtor.DateResumptionExecution = DateResumptionExecution != "" ? convertToDate(DateResumptionExecution) : new DateTime(1, 1, 1);
             debtor.Mails = Mails;
             return debtor;
         }
