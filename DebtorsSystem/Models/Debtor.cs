@@ -16,10 +16,17 @@ namespace DebtorsSystem.Models
         public DateTime DateWorkStopped { get; set; }
         public string RefundAmount { get; set; }
         public DateTime DateRefund { get; set; }
+        public bool NotificationRefund { get; set; }
+        public bool NotificationViewRefund { get; set; }
+
         public string RefundBeforeTrial { get; set; }
         public DateTime DateTrial { get; set; }
+        public bool NotificationTrial { get; set; }
+        public bool NotificationViewTrial { get; set; }
         public string RefundAfterTrial { get; set; }
         public DateTime DateExecution { get; set; }
+        public bool NotificationExecution { get; set; }
+        public bool NotificationViewExecution { get; set; }
         public DateTime DateResumptionExecution { get; set; }
         public string RefundResidue { get => ((RefundAmount!=""?float.Parse(RefundAmount):0) - (RefundBeforeTrial!=""?float.Parse(RefundBeforeTrial):0) 
                                             - (RefundAfterTrial!=""?float.Parse(RefundAfterTrial):0)).ToString(); }

@@ -41,6 +41,10 @@
                     {
                         color = "";
                     }
+                    if((debtor.DateRefund.AddMonths(6).Date==DateTime.Now.Date) && (!debtor.NotificationViewRefund))
+                    {
+                        color = "error";
+                    }
                 <tr class="@color">
                     <td>@debtor.FIO</td>
                     <td>@debtor.DateIssue.Year</td>

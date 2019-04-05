@@ -13,7 +13,7 @@ namespace DebtorsSystem.Models
         public DebtorContext(DbContextOptions<DebtorContext> options)
            : base(options)
         {
-            Database.EnsureCreated();
+          
         }
     }
 }

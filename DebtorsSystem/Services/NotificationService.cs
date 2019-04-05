@@ -28,7 +28,7 @@ namespace DebtorsSystem.Services
         public async Task StartAsync(CancellationToken cancellationToken)
         {
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(3600));
 
         }
 
@@ -40,20 +40,29 @@ namespace DebtorsSystem.Services
                 using (var scope = scopeFactory.CreateScope())
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<DebtorContext>();
-                    DateTime dd = DateTime.Now;
-                    if (dd.Hour == 15 && dd.Minute == 36 && !sendFlag)
+                    List<Debtor> debtors = dbContext.Debtors.ToList();
+                    String fio = "";
+                    foreach(Debtor debtor in debtors)
+                    {
+                        if ((debtor.DateRefund.AddMonths(6).Date == DateTime.Now.Date) &&(!debtor.NotificationRefund))
+                        {
+                            fio = debtor.FIO + " " + fio;
+                            debtor.NotificationRefund = true;
+                        }
+                    }
+                    if (fio != "")
                     {
                         TcpClient tcpClient = new TcpClient();
                         tcpClient.Connect("127.0.0.1", 8888);
                         NetworkStream stream = tcpClient.GetStream();
-                        string response = dbContext.Debtors.ToList()[0].FIO;
+                        string response = fio + "- нужно подать в суд!";
                         byte[] data = System.Text.Encoding.UTF8.GetBytes(response);
                         sendFlag = true;
                         stream.Write(data, 0, data.Length);
                         stream.Close();
                         tcpClient.Close();
-
                     }
+                    dbContext.SaveChanges();
                 }
                 
             }

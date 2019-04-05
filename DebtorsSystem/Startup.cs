@@ -30,7 +30,9 @@ namespace DebtorsSystem
             });
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<DebtorContext>(options => options.UseSqlServer(connection));
+            services.AddEntityFrameworkSqlServer().AddDbContext<DebtorContext>(opt =>
+              opt
+                  .UseSqlServer(Configuration.GetConnectionString("SQLServerConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddHostedService<NotificationService>();
         }

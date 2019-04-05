@@ -93,7 +93,6 @@ namespace DebtorsSystem.Controllers
             stream.Write(data, 0, data.Length);
             stream.Close();
             tcpClient.Close();
-            //Process.Start(@"C:\Users\gramo\Desktop\DebtorsSystem\DebtorsSystem\Helpers\Notfications\Notifications.exe");
             //var client = new TelegramBotClient("700794760:AAFaQrnpKpMIEU3VaQQ__DL9BYXYmS9dDos");
             //client.SendTextMessageAsync("241175466", "hi");
             return Ok();
