@@ -29,7 +29,6 @@ namespace DebtorsSystem
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkSqlServer().AddDbContext<DebtorContext>(opt =>
               opt
                   .UseSqlServer(Configuration.GetConnectionString("SQLServerConnection")));

@@ -28,7 +28,7 @@ namespace DebtorsSystem.Services
         public async Task StartAsync(CancellationToken cancellationToken)
         {
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(3600));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(60));
 
         }
 
@@ -44,10 +44,14 @@ namespace DebtorsSystem.Services
                     String fio = "";
                     foreach(Debtor debtor in debtors)
                     {
-                        if ((debtor.DateRefund.AddMonths(6).Date == DateTime.Now.Date) &&(!debtor.NotificationRefund))
+                        if ((debtor.DateRefund.AddMonths(6).Date <= DateTime.Now.Date) &&(!debtor.NotificationRefund)&&(float.Parse(debtor.RefundResidue)>0))
                         {
-                            fio = debtor.FIO + " " + fio;
-                            debtor.NotificationRefund = true;
+                            if (debtor.DateNotificationRefund.Date == new DateTime(1,1,1).Date)
+                            {
+                                fio = debtor.FIO + " " + fio;
+                                debtor.NotificationRefund = true;
+                                debtor.DateNotificationRefund = DateTime.Now;
+                            }
                         }
                     }
                     if (fio != "")

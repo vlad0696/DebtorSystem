@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/semantic.min.js"></script>
+<link href="~/css/semantic.css" rel="stylesheet" type="text/css" />
+<h2>Edit</h2>
+<div id="mainform" style=" margin-left:5%; margin-right:5%">
+    <a asp-area="" asp-controller="Debtor" asp-action="SaveDB">Сохранить базу  </a>
+    <br />
+    <form class="ui form" id="debtorAddForm" onsubmit="return false;">
+        <div class="field">
+            <label>Переписка</label>
+            <textarea style="margin-top: 0px; margin-bottom: 0px; height: 112px;" name="Mails"></textarea>
+        </div>
+        <div class="ui submit button">Сохранить</div>
+    </form>
+    <input class="ui button" style="margin-top:1%" id="DownloadDB" type="file">
+</div>
+<script>
+    var $debtorAddForm = $('#debtorAddForm');
+    $('#mainform .ui.button').on('click', function () {
+        $mydata = {
+            'Mails': $debtorAddForm.form('get value', 'Mails')
+        }
+        console.log($mydata);
+        $.ajax({
+            url: '/debtor/DownloadBD',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify($mydata.Mails),
+            success: function (data) {
+                window.location = "@Url.Action("Index", "Debtor")";
+
+            },
+            async: true
+        });
+    })
+</script>

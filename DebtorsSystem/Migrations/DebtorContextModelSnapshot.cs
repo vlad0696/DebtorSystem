@@ -15,7 +15,7 @@ namespace DebtorsSystem.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -30,6 +30,12 @@ namespace DebtorsSystem.Migrations
                     b.Property<DateTime>("DateExecution");
 
                     b.Property<DateTime>("DateIssue");
+
+                    b.Property<DateTime>("DateNotificationExecution");
+
+                    b.Property<DateTime>("DateNotificationRefund");
+
+                    b.Property<DateTime>("DateNotificationTrial");
 
                     b.Property<DateTime>("DateRefund");
 
