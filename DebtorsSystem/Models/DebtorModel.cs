@@ -41,10 +41,10 @@ namespace DebtorsSystem.Models
                 debtor.TrainingLevel = "ССО";
             }
             debtor.Address = Address;
-            debtor.DateWorkStarted= DateWorkStarted != "" ? convertToDate(DateWorkStarted) : new DateTime(1, 1, 1);
+            debtor.DateWorkStarted = DateWorkStarted != "" ? convertToDate(DateWorkStarted) : new DateTime(1, 1, 1);
             debtor.DateWorkStopped = DateWorkStopped != "" ? convertToDate(DateWorkStopped) : new DateTime(1, 1, 1);
             debtor.RefundAmount = RefundAmount;
-            debtor.DateRefund = DateRefund!= "" ? convertToDate(DateRefund):new DateTime(1,1,1);
+            debtor.DateRefund = DateRefund != "" ? convertToDate(DateRefund) : new DateTime(1, 1, 1);
             debtor.RefundBeforeTrial = RefundBeforeTrial;
             debtor.DateTrial = DateTrial != "" ? convertToDate(DateTrial) : new DateTime(1, 1, 1);
             debtor.RefundAfterTrial = RefundAfterTrial;
@@ -58,7 +58,7 @@ namespace DebtorsSystem.Models
         {
             Debtor debtor = new Debtor();
             debtor.FIO = FIO;
-            debtor.DateIssue = DateIssue!=""? convertToDate(DateIssue):new DateTime(1,1,1);
+            debtor.DateIssue = DateIssue != "" ? convertToDate(DateIssue) : new DateTime(1, 1, 1);
             if (TrainingLevel == "1")
             {
                 debtor.TrainingLevel = "ПТО";
@@ -83,19 +83,22 @@ namespace DebtorsSystem.Models
         //Февраль 20, 2019
         private DateTime convertToDate(string value)
         {
-            
-            string[] values = value.Split(' ');
-            values[1] = values[1].Remove(values[1].Length-1, 1);
-            string[] months = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
-            int month = 0;
-            for(int i = 0; i < 12; i++)
-            {
-                if (months[i] == values[0])
-                {
-                    month = i + 1;
-                }
-            }
-            DateTime dateTime = new DateTime(int.Parse(values[2]), month, int.Parse(values[1]));
+
+            //string[] values = value.Split(' ');
+            //values[1] = values[1].Remove(values[1].Length-1, 1);
+            //string[] months = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+            //int month = 0;
+            //for(int i = 0; i < 12; i++)
+            //{
+            //    if (months[i] == values[0])
+            //    {
+            //        month = i + 1;
+            //    }
+            //}
+            //DateTime dateTime = new DateTime(int.Parse(values[2]), month, int.Parse(values[1]));
+
+            string[] values = value.Split('.');
+            DateTime dateTime = new DateTime(int.Parse(values[2]), int.Parse(values[1]), int.Parse(values[0]));
             return dateTime;
         }
     }

@@ -92,7 +92,7 @@ namespace DebtorsSystem.Controllers
         {
 
             Debtor debtor = debtorContext.Debtors.SingleOrDefault(d=>d.Id==Id);
-            return View(debtor.ConvertToDebtorModel());
+            return View(debtor);
          
         }
         [HttpGet]

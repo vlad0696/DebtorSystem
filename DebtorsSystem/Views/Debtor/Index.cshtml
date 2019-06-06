@@ -131,6 +131,7 @@
                     else
                     {
                         AllRefund = (float.Parse(AllRefund) - float.Parse(debtor.RefundAmount)).ToString();
+                        debtors.AllRefund = (float.Parse(debtors.AllRefund) - float.Parse(debtor.RefundAmount)).ToString(); 
                     }
                 }
 
