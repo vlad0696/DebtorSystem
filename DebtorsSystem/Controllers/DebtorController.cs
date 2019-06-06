@@ -173,7 +173,7 @@ namespace DebtorsSystem.Controllers
                 items.Add(new Item()
                 {
                     name = d.FIO,
-                    html_url = "//localhost:44357/Debtor/Edit?id=" + d.Id.ToString()
+                    html_url = "//localhost:44357/Debtor/Edit/" + d.Id.ToString()
                 });
             }
             return new JsonResult(new { Items=items });

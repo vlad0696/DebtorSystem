@@ -36,39 +36,44 @@ namespace DebtorsSystem.Services
         {
             lock (synclock)
             {
-
-                using (var scope = scopeFactory.CreateScope())
+                try
                 {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<DebtorContext>();
-                    List<Debtor> debtors = dbContext.Debtors.ToList();
-                    String fio = "";
-                    foreach(Debtor debtor in debtors)
+                    using (var scope = scopeFactory.CreateScope())
                     {
-                        if ((debtor.DateRefund.AddMonths(6).Date <= DateTime.Now.Date) &&(!debtor.NotificationRefund)&&(float.Parse(debtor.RefundResidue)>0))
+                        var dbContext = scope.ServiceProvider.GetRequiredService<DebtorContext>();
+                        List<Debtor> debtors = dbContext.Debtors.ToList();
+                        String fio = "";
+                        foreach (Debtor debtor in debtors)
                         {
-                            if (debtor.DateNotificationRefund.Date == new DateTime(1,1,1).Date)
+                            if ((debtor.DateRefund.AddMonths(6).Date <= DateTime.Now.Date) && (!debtor.NotificationRefund) && (float.Parse(debtor.RefundResidue) > 0))
                             {
-                                fio = debtor.FIO + " " + fio;
-                                debtor.NotificationRefund = true;
-                                debtor.DateNotificationRefund = DateTime.Now;
+                                if (debtor.DateNotificationRefund.Date == new DateTime(1, 1, 1).Date)
+                                {
+                                    fio = debtor.FIO + " " + fio;
+                                    debtor.NotificationRefund = true;
+                                    debtor.DateNotificationRefund = DateTime.Now;
+                                }
                             }
                         }
+                        if (fio != "")
+                        {
+                            TcpClient tcpClient = new TcpClient();
+                            tcpClient.Connect("127.0.0.1", 8888);
+                            NetworkStream stream = tcpClient.GetStream();
+                            string response = fio + "- нужно подать в суд!";
+                            byte[] data = System.Text.Encoding.UTF8.GetBytes(response);
+                            sendFlag = true;
+                            stream.Write(data, 0, data.Length);
+                            stream.Close();
+                            tcpClient.Close();
+                        }
+                        dbContext.SaveChanges();
                     }
-                    if (fio != "")
-                    {
-                        TcpClient tcpClient = new TcpClient();
-                        tcpClient.Connect("127.0.0.1", 8888);
-                        NetworkStream stream = tcpClient.GetStream();
-                        string response = fio + "- нужно подать в суд!";
-                        byte[] data = System.Text.Encoding.UTF8.GetBytes(response);
-                        sendFlag = true;
-                        stream.Write(data, 0, data.Length);
-                        stream.Close();
-                        tcpClient.Close();
-                    }
-                    dbContext.SaveChanges();
                 }
-                
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
         public Task StopAsync(CancellationToken cancellationToken)

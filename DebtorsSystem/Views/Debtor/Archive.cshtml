@@ -1,12 +1,18 @@
 ﻿@model IEnumerable<DebtorsSystem.Models.DebtorTable>
 @{
-    ViewData["Title"] = "Система задолжников";
+    ViewData["Title"] = "Возмещение средств";
     string AllRefund = "0";
     string AllRefundResidue = "0";
     string color = "";
 }
 
-
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/semantic.min.js"></script>
+<script src="~/js/dropdown.min.js"></script>
+<script src="~/js/calendar.min.js"></script>
+<link href="~/css/semantic.css" rel="stylesheet" type="text/css" />
+<link href="~/css/dropdown.min.css" rel="stylesheet" type="text/css" />
+<link href="~/css/calendar.min.css" rel="stylesheet" type="text/css" />
 <div style="margin-top:5%; margin-left:1%; margin-right:1%">
     <table class="ui fixed green table">
         <thead>
