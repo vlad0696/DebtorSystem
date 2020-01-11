@@ -4,14 +4,16 @@ using DebtorsSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtorsSystem.Migrations
 {
     [DbContext(typeof(DebtorContext))]
-    partial class DebtorContextModelSnapshot : ModelSnapshot
+    [Migration("20200111142052_add isworkstarted")]
+    partial class addisworkstarted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

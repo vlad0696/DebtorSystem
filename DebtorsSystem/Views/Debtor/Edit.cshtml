@@ -2,42 +2,44 @@
 @{
     ViewData["Title"] = "Edit";
     DateTime dateTime = new DateTime(1, 1, 1);
+
+    string IsWorkStarted = @Model.IsWorkStarted ? "Да" : "Нет";
     string DateIssue="";
     if (Model.DateIssue.ToShortDateString() != "01.01.0001")
     {
         DateIssue = @Model.DateIssue.ToShortDateString();
     }
-     string DateWorkStarted="";
+    string DateWorkStarted="";
     if (Model.DateWorkStarted.ToShortDateString() != "01.01.0001")
     {
         DateWorkStarted = @Model.DateWorkStarted.ToShortDateString();
     }
-     string DateWorkStopped="";
+    string DateWorkStopped="";
     if (Model.DateWorkStopped.ToShortDateString() != "01.01.0001")
     {
         DateWorkStopped = @Model.DateWorkStopped.ToShortDateString();
     }
-     string DateRefund="";
+    string DateRefund="";
     if (Model.DateRefund.ToShortDateString() != "01.01.0001")
     {
         DateRefund = @Model.DateRefund.ToShortDateString();
     }
-     string DateTrial="";
+    string DateTrial="";
     if (Model.DateTrial.ToShortDateString() != "01.01.0001")
     {
         DateTrial = @Model.DateTrial.ToShortDateString();
     }
-     string DateResumptionExecution="";
+    string DateResumptionExecution="";
     if (Model.DateResumptionExecution.ToShortDateString() != "01.01.0001")
     {
         DateResumptionExecution = @Model.DateResumptionExecution.ToShortDateString();
     }
-     string DateExecution="";
+    string DateExecution="";
     if (Model.DateExecution.ToShortDateString() != "01.01.0001")
     {
         DateExecution = @Model.DateExecution.ToShortDateString();
     }
-    
+
 }
 <script src="~/js/jquery-3.3.1.min.js"></script>
 <script src="~/js/semantic.min.js"></script>
@@ -54,6 +56,11 @@
         <div class=" field">
             <label>ФИО</label>
             <input name="FIO" type="text" placeholder="ФИО" value="@Model.FIO">
+        </div>
+
+        <div class="field">
+            <label>Номер</label>
+            <input type="text" placeholder="Номер" name="Number" value="@Model.Number">
         </div>
 
         <div class="field">
@@ -78,6 +85,20 @@
             <input type="text" placeholder="Адрес" name="Address" value="@Model.Address">
         </div>
 
+        <div class=" field">
+            <label>Отметка о прибытии по месту распределения</label>
+            <div class="ui selection dropdown" style="margin-top:1%;margin-bottom:1% ">
+
+                <input type="hidden" name="IsWorkStarted" value="@IsWorkStarted">
+                <i class="dropdown icon"></i>
+                <div class="default text">Отметка о прибытии по месту распределения</div>
+                <div class="menu">
+                    <div class="item" data-value="1">Да</div>
+                    <div class="item" data-value="0">Нет</div>
+                </div>
+            </div>
+        </div>
+
         <div class="field">
             <label>Дата приступления к работе</label>
             <input type="text" placeholder="Дата приступления к работе" name="DateWorkStarted" value="@DateWorkStarted">
@@ -89,8 +110,8 @@
         </div>
 
         <div class="field">
-            <label>Дата уведомления</label>
-            <input type="text" placeholder="Дата уведомления" name="DateRefund" value="@DateRefund">
+            <label>Дата уведомления выпускника</label>
+            <input type="text" placeholder="Дата уведомления выпускника" name="DateRefund" value="@DateRefund">
         </div>
 
         <div class=" field">
@@ -99,8 +120,8 @@
         </div>
 
         <div class=" field">
-            <label>Сумма возмещения до суда</label>
-            <input type="text" placeholder="Сумма возмещения до суда" name="RefundBeforeTrial" value="@Model.RefundBeforeTrial">
+            <label>Сумма, возмещённая до суда</label>
+            <input type="text" placeholder="Сумма, возмещённая до суда" name="RefundBeforeTrial" value="@Model.RefundBeforeTrial">
         </div>
 
         <div class="field">
@@ -119,8 +140,8 @@
         </div>
 
         <div class="field">
-            <label>Дата восстановления исполнительного производства</label>
-            <input type="text" placeholder="Дата восстановления исполнительного производства" name="DateResumptionExecution" value="@DateResumptionExecution">
+            <label>Дата постановления о возбуждении исполнительного производства</label>
+            <input type="text" placeholder="Дата постановления о возбуждении исполнительного производства" name="DateResumptionExecution" value="@DateResumptionExecution">
         </div>
 
         <div class="field">
@@ -155,9 +176,11 @@
             $mydata = {
                 'Id': $debtorAddForm.form('get value', 'Id'),
                 'FIO': $debtorAddForm.form('get value', 'FIO'),
+                'Number': $debtorAddForm.form('get value', 'Number'),
                 'DateIssue': $debtorAddForm.form('get value', 'DateIssue'),
                 'TrainingLevel': $debtorAddForm.form('get value', 'TrainingLevel'),
                 'Address': $debtorAddForm.form('get value', 'Address'),
+                'IsWorkStarted': $debtorAddForm.form('get value', 'IsWorkStarted'),
                 'DateWorkStarted': $debtorAddForm.form('get value', 'DateWorkStarted'),
                 'DateWorkStopped': $debtorAddForm.form('get value', 'DateWorkStopped'),
                 'RefundAmount': $debtorAddForm.form('get value', 'RefundAmount'),
@@ -193,6 +216,13 @@
                     rules: [{
                         type: 'empty',
                         prompt: 'Введите ФИО'
+                    }]
+                },
+                   Number: {
+                    identifier: 'Number',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Введите номер'
                     }]
                 },
                 RefundAmount: {

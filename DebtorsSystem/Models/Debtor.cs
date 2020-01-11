@@ -9,9 +9,12 @@ namespace DebtorsSystem.Models
     {
         public int Id { get; set; }
         public string FIO { get; set; }
+
+        public int Number { get; set; }
         public DateTime DateIssue { get; set; }
         public string TrainingLevel { get; set; }
         public string Address { get; set; }
+        public bool IsWorkStarted { get; set; }
         public DateTime DateWorkStarted { get; set; }
         public DateTime DateWorkStopped { get; set; }
         public string RefundAmount { get; set; }
@@ -46,9 +49,11 @@ namespace DebtorsSystem.Models
             DebtorModel debtorModel = new DebtorModel();
             debtorModel.Id = Id.ToString();
             debtorModel.FIO = FIO;
+            debtorModel.Number = Number.ToString();
             debtorModel.DateIssue = ConvetFromDateTime(DateIssue);
             debtorModel.TrainingLevel = TrainingLevel;
             debtorModel.Address = Address;
+            debtorModel.IsWorkStarted = IsWorkStarted.ToString();
             debtorModel.DateWorkStarted = ConvetFromDateTime(DateWorkStarted);
             debtorModel.DateWorkStopped = ConvetFromDateTime(DateWorkStopped);
             debtorModel.RefundAmount = RefundAmount;

@@ -4,14 +4,16 @@ using DebtorsSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtorsSystem.Migrations
 {
     [DbContext(typeof(DebtorContext))]
-    partial class DebtorContextModelSnapshot : ModelSnapshot
+    [Migration("20200111134213_add number")]
+    partial class addnumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,6 @@ namespace DebtorsSystem.Migrations
                     b.Property<DateTime>("DateWorkStopped");
 
                     b.Property<string>("FIO");
-
-                    b.Property<bool>("IsWorkStarted");
 
                     b.Property<string>("Mails");
 

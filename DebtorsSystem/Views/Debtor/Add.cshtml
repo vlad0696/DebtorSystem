@@ -16,6 +16,11 @@
             <input name="FIO" type="text" placeholder="ФИО">
         </div>
 
+        <div class=" field">
+            <label>Номер</label>
+            <input name="Number" type="text" placeholder="Номер">
+        </div>
+
         <div class="field">
             <label>Дата выпуска</label>
             <input type="text" placeholder="Дата выпуска" name="DateIssue">
@@ -38,6 +43,20 @@
             <input type="text" placeholder="Адрес" name="Address">
         </div>
 
+        <div class=" field">
+            <label>Отметка о прибытии по месту распределения</label>
+            <div class="ui selection dropdown" style="margin-top:1%;margin-bottom:1% ">
+
+                <input type="hidden" name="IsWorkStarted">
+                <i class="dropdown icon"></i>
+                <div class="default text">Отметка о прибытии по месту распределения</div>
+                <div class="menu">
+                    <div class="item" data-value="1">Да</div>
+                    <div class="item" data-value="0">Нет</div>
+                </div>
+            </div>
+        </div>
+
         <div class="field">
             <label>Дата приступления к работе</label>
             <input type="text" placeholder="Дата приступления к работе" name="DateWorkStarted">
@@ -49,8 +68,8 @@
         </div>
 
         <div class="field">
-            <label>Дата уведомления</label>
-            <input type="text" placeholder="Дата уведомления" name="DateRefund">
+            <label>Дата уведомления выпускника</label>
+            <input type="text" placeholder="Дата уведомления выпускника" name="DateRefund">
         </div>
 
         <div class=" field">
@@ -59,8 +78,8 @@
         </div>
 
         <div class=" field">
-            <label>Сумма возмещения до суда</label>
-            <input type="text" placeholder="Сумма возмещения до суда" name="RefundBeforeTrial">
+            <label>Сумма, возмещённая до суда</label>
+            <input type="text" placeholder="Сумма, возмещённая до суда" name="RefundBeforeTrial">
         </div>
 
         <div class="field">
@@ -79,8 +98,8 @@
         </div>
 
         <div class="field">
-            <label>Дата восстановления исполнительного производства</label>
-            <input type="text" placeholder="Дата восстановления исполнительного производства" name="DateResumptionExecution">
+            <label>Дата постановления о возбуждении исполнительного производства</label>
+            <input type="text" placeholder="Дата постановления о возбуждении исполнительного производства" name="DateResumptionExecution">
         </div>
 
         <div class="field">
@@ -117,6 +136,13 @@
                     rules: [{
                         type: 'empty',
                         prompt: 'Введите ФИО'
+                    }]
+                },
+                        Number: {
+                    identifier: 'Number',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Введите номер'
                     }]
                 },
                 RefundAmount: {
@@ -232,9 +258,11 @@
         if ($debtorAddForm.form('is valid'))     {
             $mydata = {
                 'FIO': $debtorAddForm.form('get value', 'FIO'),
+                'Number': $debtorAddForm.form('get value', 'Number'),
                 'DateIssue': $debtorAddForm.form('get value', 'DateIssue'),
                 'TrainingLevel': $debtorAddForm.form('get value', 'TrainingLevel'),
                 'Address': $debtorAddForm.form('get value', 'Address'),
+                'IsWorkStarted': $debtorAddForm.form('get value', 'IsWorkStarted'),
                 'DateWorkStarted': $debtorAddForm.form('get value', 'DateWorkStarted'),
                 'DateWorkStopped': $debtorAddForm.form('get value', 'DateWorkStopped'),
                 'RefundAmount': $debtorAddForm.form('get value', 'RefundAmount'),
@@ -260,4 +288,6 @@
             });
         }
     })
+
+    
 </script>

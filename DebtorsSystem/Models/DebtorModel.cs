@@ -9,9 +9,11 @@ namespace DebtorsSystem.Models
     {
         public string Id { get; set; }
         public string FIO { get; set; }
+        public string Number { get; set; }
         public string DateIssue { get; set; }
         public string TrainingLevel { get; set; }
         public string Address { get; set; }
+        public string IsWorkStarted { get; set; }
         public string DateWorkStarted { get; set; }
         public string DateWorkStopped { get; set; }
         public string RefundAmount { get; set; }
@@ -30,6 +32,7 @@ namespace DebtorsSystem.Models
         {
             debtor.Id = int.Parse(Id);
             debtor.FIO = FIO;
+            debtor.Number = int.Parse(Number);
             debtor.DateIssue = DateIssue != "" ? convertToDate(DateIssue) : new DateTime(1, 1, 1);
 
             if (TrainingLevel == "1")
@@ -41,6 +44,14 @@ namespace DebtorsSystem.Models
                 debtor.TrainingLevel = "ССО";
             }
             debtor.Address = Address;
+            if (IsWorkStarted == "1")
+            {
+                debtor.IsWorkStarted = true;
+            }
+            else
+            {
+                debtor.IsWorkStarted = false;
+            }
             debtor.DateWorkStarted = DateWorkStarted != "" ? convertToDate(DateWorkStarted) : new DateTime(1, 1, 1);
             debtor.DateWorkStopped = DateWorkStopped != "" ? convertToDate(DateWorkStopped) : new DateTime(1, 1, 1);
             debtor.RefundAmount = RefundAmount;
@@ -58,6 +69,7 @@ namespace DebtorsSystem.Models
         {
             Debtor debtor = new Debtor();
             debtor.FIO = FIO;
+            debtor.Number = int.Parse(Number);
             debtor.DateIssue = DateIssue != "" ? convertToDate(DateIssue) : new DateTime(1, 1, 1);
             if (TrainingLevel == "1")
             {
@@ -68,6 +80,14 @@ namespace DebtorsSystem.Models
                 debtor.TrainingLevel = "ССО";
             }
             debtor.Address = Address;
+            if (IsWorkStarted == "1")
+            {
+                debtor.IsWorkStarted = true;
+            }
+            else
+            {
+                debtor.IsWorkStarted = false;
+            }
             debtor.DateWorkStarted = DateWorkStarted != "" ? convertToDate(DateWorkStarted) : new DateTime(1, 1, 1);
             debtor.DateWorkStopped = DateWorkStopped != "" ? convertToDate(DateWorkStopped) : new DateTime(1, 1, 1);
             debtor.RefundAmount = RefundAmount;

@@ -54,7 +54,7 @@
                             color = "error";
                         }
                         <tr class="@color">
-                            <td>@debtor.FIO</td>
+                            <td>@debtor.Number) @debtor.FIO</td>
                             <td>@debtor.DateIssue.Year</td>
                             <td>@debtor.TrainingLevel</td>
                             <td>
@@ -202,3 +202,10 @@
         })
         ;
 </script>
+<style>
+    .ui.table thead tr:first-child > th {
+     position: sticky !important;
+     top: 0;
+     z-index: 100;
+}
+</style>
